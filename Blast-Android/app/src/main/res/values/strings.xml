@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">blast</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="description">Media Controls</string>
+    <string name="left_arrow">&lt;</string>
+    <string name="content_description">content_description</string>
+    <string name="facebook_app_id">253116984891698</string>
+
+</resources>

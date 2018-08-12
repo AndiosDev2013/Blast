@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:src="@drawable/background_pre" />
+
+        <TextView
+            android:id="@+id/tv_setting"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:layout_weight="7"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:text="SETTINGS"
+            android:textColor="#000000"
+            android:textSize="@dimen/text_title" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_setting_list_item"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/space_large"
+                android:paddingLeft="@dimen/space_normal"
+                android:paddingRight="@dimen/space_normal"
+                android:paddingTop="@dimen/space_large">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <com.facebook.widget.ProfilePictureView
+                        android:id="@+id/fbpic_avatar"
+                        android:layout_width="@dimen/avatar_size"
+                        android:layout_height="@dimen/avatar_size"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="@dimen/space_normal"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/img_avatar"
+                        android:layout_width="@dimen/avatar_size"
+                        android:layout_height="@dimen/avatar_size"
+                        android:layout_gravity="center_horizontal"
+                        android:contentDescription="@string/app_name"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/ic_no_profile_image" />
+
+                    <TextView
+                        android:id="@+id/txt_user_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_normal"
+                        android:gravity="center"
+                        android:singleLine="true"
+                        android:text="Unknown User"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/text_content"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/next_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginBottom="@dimen/space_extra_small"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_marginRight="@dimen/space_normal"
+                android:background="#d49367" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_marginRight="@dimen/space_normal"
+                android:background="#d49367" />
+
+            <LinearLayout
+                android:id="@+id/btn_reset_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_setting_list_item"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_normal">
+
+                <ImageView
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_reset_password" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:text="Reset Password"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/text_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/next_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_reset_password_item_bottom_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_marginRight="@dimen/space_normal"
+                android:background="@drawable/img_seperator_horizontal"
+                android:orientation="horizontal" />
+
+            <!-- <LinearLayout -->
+            <!-- android:id="@+id/btn_favourited_url" -->
+            <!-- android:layout_width="match_parent" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:background="@drawable/bg_setting_list_item" -->
+            <!-- android:orientation="horizontal" -->
+            <!-- android:padding="@dimen/space_normal" > -->
+
+
+            <!-- <ImageView -->
+            <!-- android:layout_width="@dimen/avatar_size" -->
+            <!-- android:layout_height="@dimen/avatar_size" -->
+            <!-- android:layout_marginRight="@dimen/space_normal" -->
+            <!-- android:contentDescription="@string/app_name" -->
+            <!-- android:scaleType="center" -->
+            <!-- android:src="@drawable/ic_vote_up" /> -->
+
+
+            <!-- <TextView -->
+            <!-- android:layout_width="0dp" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:layout_gravity="left|center_vertical" -->
+            <!-- android:layout_weight="1" -->
+            <!-- android:text="My favourited URL" -->
+            <!-- android:textColor="#ffffff" -->
+            <!-- android:textSize="@dimen/text_content" /> -->
+
+
+            <!-- <ImageView -->
+            <!-- android:layout_width="wrap_content" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:layout_gravity="center_vertical" -->
+            <!-- android:contentDescription="@string/app_name" -->
+            <!-- android:src="@drawable/next_item" /> -->
+            <!-- </LinearLayout> -->
+
+
+            <!-- <LinearLayout -->
+            <!-- android:layout_width="match_parent" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:layout_marginLeft="@dimen/space_normal" -->
+            <!-- android:layout_marginRight="@dimen/space_normal" -->
+            <!-- android:background="@drawable/img_seperator_horizontal" /> -->
+
+            <LinearLayout
+                android:id="@+id/btn_submit_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_setting_list_item"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_normal">
+
+                <ImageView
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_mail" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:text="Submit Your URL"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/text_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/next_item" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_marginRight="@dimen/space_normal"
+                android:background="@drawable/img_seperator_horizontal" />
+
+            <LinearLayout
+                android:id="@+id/btn_clear_cache"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_setting_list_item"
+                android:orientation="horizontal"
+                android:padding="@dimen/space_normal">
+
+                <ImageView
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    android:layout_marginRight="@dimen/space_normal"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_brush" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_vertical"
+                    android:layout_weight="1"
+                    android:text="Clear Cache"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/text_content" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/next_item" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

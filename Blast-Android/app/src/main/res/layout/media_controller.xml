@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#CC000000"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="@dimen/space_normal" >
+
+            <ImageView
+                android:id="@+id/btn_fullscreen"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/description"
+                android:src="@drawable/bg_btn_media_fullscreen" />
+
+            <ImageView
+                android:id="@+id/btn_backward"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/description"
+                android:src="@drawable/bg_btn_media_backward" />
+
+            <ImageView
+                android:id="@+id/btn_play"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/description"
+                android:src="@drawable/bg_btn_media_pause" />
+
+            <ImageView
+                android:id="@+id/btn_forward"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/description"
+                android:src="@drawable/bg_btn_media_forward" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/txt_current_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/space_large"
+                android:gravity="center"
+                android:text="00:00:00"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_content"
+                android:textStyle="bold" />
+
+            <SeekBar
+                android:id="@+id/mediacontroller_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/space_large"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:maxHeight="6dp"
+                android:minHeight="6dp"
+                android:paddingLeft="@dimen/space_large"
+                android:paddingRight="@dimen/space_large"
+                android:progressDrawable="@drawable/seek_bar"
+                android:thumb="@drawable/icon_ball" />
+
+            <TextView
+                android:id="@+id/txt_end_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/space_normal"
+                android:gravity="center"
+                android:text="00:00:00"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_content"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.devsmart.android.ui.HorizontalListView
+        android:id="@+id/lst_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_noise_horizontal"
+        android:padding="@dimen/space_normal" />
+
+</LinearLayout>

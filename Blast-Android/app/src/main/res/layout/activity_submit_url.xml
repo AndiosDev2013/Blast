@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#ffffff"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/background_pre_signin" />
+
+        <TextView
+            android:id="@+id/tv_setting"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:layout_weight="7"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:text="SUBMIT YOUR URL"
+            android:textColor="#000000"
+            android:textSize="@dimen/text_title" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@null" >
+
+        <TextView
+            android:id="@+id/tv_channel_audio"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:text="   CHANNEL AUDIO"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/text_content" />
+
+        <ImageView
+            android:id="@+id/btn_channel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            android:src="@drawable/btn_tog_on" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_large"
+        android:layout_marginRight="@dimen/space_large"
+        android:background="@null"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
+        android:src="@drawable/img_seperator_horizontal" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8.3"
+        android:orientation="vertical"
+        android:padding="@dimen/space_normal" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_large"
+            android:gravity="center"
+            android:text="HAVE A GREAT VIDEO TO\nSUBMIT FOR CONSIDERATION"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_large"
+            android:gravity="center"
+            android:text="Please email us the URL :)\nYou can also email us your any feedback\nor bugsyou might experience"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_content"
+            android:textStyle="normal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/normal_edit_height"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:text="Email"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_content"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/edt_email"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_weight="2"
+                android:background="@drawable/edt_singleline"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="@dimen/space_normal"
+                android:paddingRight="@dimen/space_normal"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/normal_edit_height"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left|center_vertical"
+                android:text="Video URL"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_content"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/edt_url"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_weight="2"
+                android:background="@drawable/edt_singleline"
+                android:inputType="textUri"
+                android:paddingLeft="@dimen/space_normal"
+                android:paddingRight="@dimen/space_normal"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/space_normal"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Message"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text_content"
+                android:textStyle="normal" />
+
+            <EditText
+                android:id="@+id/edt_message"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_normal"
+                android:layout_marginTop="@dimen/space_small"
+                android:layout_weight="2"
+                android:background="@drawable/edt_multiline"
+                android:gravity="left"
+                android:inputType="textMultiLine"
+                android:paddingBottom="@dimen/space_normal"
+                android:paddingLeft="@dimen/space_normal"
+                android:paddingRight="@dimen/space_normal"
+                android:paddingTop="@dimen/space_normal"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/text_content" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_normal"
+            android:layout_marginLeft="@dimen/space_extra_large"
+            android:layout_marginRight="@dimen/space_extra_large"
+            android:layout_marginTop="@dimen/space_normal"
+            android:background="@drawable/bg_btn_red"
+            android:gravity="center"
+            android:text="SEND"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/text_content"
+            android:textStyle="italic" />
+    </LinearLayout>
+
+</LinearLayout>

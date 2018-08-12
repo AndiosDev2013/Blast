@@ -1,0 +1,24 @@
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <dimen name="space_extra_small">2dp</dimen>
+    <dimen name="space_small">4dp</dimen>
+    <dimen name="space_normal">8dp</dimen>
+    <dimen name="space_large">16dp</dimen>
+    <dimen name="space_extra_large">32dp</dimen>
+    
+    <dimen name="normal_edit_height">100dp</dimen>
+    <dimen name="avatar_size">80dp</dimen>
+    
+    <dimen name="text_title">48sp</dimen>
+    <dimen name="text_content">32sp</dimen>
+    <dimen name="text_small_content">16sp</dimen>
+    
+    <dimen name="height_media_control">50dp</dimen>
+    
+    <integer name="fade_animation_time">500</integer>
+    <integer name="slide_animation_time">2000</integer>
+
+</resources>
