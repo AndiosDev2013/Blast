@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.example.blast.Constants;
+import com.example.blast.AppConstants;
 import com.example.blast.R;
 
 public class SplashActivity_3 extends Activity{
@@ -32,7 +32,7 @@ public class SplashActivity_3 extends Activity{
 		public void run() {
 			try {
 				// Sleeping
-				Thread.sleep(Constants.SPLASH3_SLEEP_TIME*1000);
+				Thread.sleep(AppConstants.SPLASH3_SLEEP_TIME*1000);
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage());
 			}

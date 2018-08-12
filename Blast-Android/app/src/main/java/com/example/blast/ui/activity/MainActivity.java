@@ -1,17 +1,5 @@
 package com.example.blast.ui.activity;
 
-import java.util.ArrayList;
-
-import com.example.blast.utils.BaseTask;
-import com.example.blast.utils.BaseTask.TaskListener;
-import com.example.blast.Constants;
-import com.example.blast.R;
-import com.example.blast.http.Server;
-import com.example.blast.model.ChannelModel;
-import com.example.blast.model.VideoModel;
-import com.example.blast.utils.myImageLoader;
-import com.example.blast.utils.FontUtil;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,14 +22,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.blast.AppConstants;
+import com.example.blast.AppGlobals;
+import com.example.blast.AppPreferences;
+import com.example.blast.R;
+import com.example.blast.http.Server;
+import com.example.blast.model.ChannelModel;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
+import com.example.blast.utils.FontUtil;
+import com.example.blast.utils.myImageLoader;
+
+import java.util.ArrayList;
+
 public class MainActivity extends Activity {
 
 	// for data
-	private ArrayList<ChannelModel.Info> mChannelList = new ArrayList<ChannelModel.Info>();
-	private ArrayList<VideoModel.Info> mVideoList = new ArrayList<VideoModel.Info>();
-	
+	private ArrayList<ChannelModel.Info> mChannelList = new ArrayList<>();
+
 	// for UI
-	private View btn_setting;
 	private ImageView btn_channel;
 	private boolean channel_audio_flag = true;
 	private ListView lst_category;
@@ -53,8 +52,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		btn_setting = findViewById(R.id.btn_setting);
-		btn_setting.setOnClickListener(new OnClickListener() {
+		findViewById(R.id.btn_setting).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -63,7 +61,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		btn_channel = (ImageView) findViewById(R.id.btn_channel);
+		btn_channel = findViewById(R.id.btn_channel);
 		btn_channel.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -77,10 +75,10 @@ public class MainActivity extends Activity {
 			}
 		});
 		
-		TextView text_channel_audio = (TextView)findViewById(R.id.text_channel_audio);
+		TextView text_channel_audio = findViewById(R.id.text_channel_audio);
 		text_channel_audio.setTypeface(FontUtil.GetDeJaFont(this));
 		
-		lst_category = (ListView) findViewById(R.id.lst_category);
+		lst_category = findViewById(R.id.lst_category);
 		lst_category.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View convertView, int position, long id) {
@@ -137,7 +135,7 @@ public class MainActivity extends Activity {
 					return null;
 				}
 
-				return ((String) result);
+				return result;
 			}
 
 			@Override
@@ -189,13 +187,12 @@ public class MainActivity extends Activity {
 	public class LazyAdapter extends BaseAdapter {
 		Activity act;
 		ArrayList<ChannelModel.Info> mArrayList;
-		String mitem[];
-		private LayoutInflater inflater = null;
+		private LayoutInflater inflater;
 
-		public LazyAdapter(Activity a, ArrayList<ChannelModel.Info> category) {
+		LazyAdapter(Activity a, ArrayList<ChannelModel.Info> category) {
 			act = a;
 			if (category == null) {
-				this.mArrayList = new ArrayList<ChannelModel.Info>();
+				this.mArrayList = new ArrayList<>();
 			} else {
 				this.mArrayList = category;
 			}
@@ -226,9 +223,9 @@ public class MainActivity extends Activity {
 			if (convertView == null) {
 				convertView = inflater.inflate(R.layout.row_category, null);
 				holder = new ViewHolder();
-				holder.item_layout = (RelativeLayout) convertView.findViewById(R.id.item_layout);
-				holder.img_channel = (ImageView) convertView.findViewById(R.id.img_channel);
-				holder.txt_channel_name = (TextView) convertView.findViewById(R.id.txt_channel_name);
+				holder.item_layout = convertView.findViewById(R.id.item_layout);
+				holder.img_channel = convertView.findViewById(R.id.img_channel);
+				holder.txt_channel_name = convertView.findViewById(R.id.txt_channel_name);
 				convertView.setTag(holder);
 
 			} else {
@@ -237,7 +234,7 @@ public class MainActivity extends Activity {
 
 			try {
 				ViewGroup.LayoutParams params = holder.item_layout.getLayoutParams();
-				params.height = (int)(Constants.SCREEN_WIDTH * 0.5);
+				params.height = (int)(AppGlobals.SCREEN_WIDTH * 0.5);
 				
 				myImageLoader.showImage(holder.img_channel, "");
 				holder.txt_channel_name.setText(mArrayList.get(position).name);
@@ -264,11 +261,10 @@ public class MainActivity extends Activity {
 				/*
 				 * Reset Configuration Information
 				 */
-				ConfigInfo.setUserLoginMode(Constants.LOGIN_TYPE_UNKNOWN);
-				ConfigInfo.setUserId("");
-				ConfigInfo.setUserName("Unknown User");
-				ConfigInfo.setUserAvatarUrl("");
-				
+				AppPreferences.setInt(AppPreferences.KEY.LOGIN_MODE, AppConstants.LOGIN_TYPE_UNKNOWN);
+				AppPreferences.removeKey(AppPreferences.KEY.USER_ID);
+				AppPreferences.removeKey(AppPreferences.KEY.USER_AVATAR_URL);
+
 				// finish
 				MainActivity.super.onBackPressed();
 			}

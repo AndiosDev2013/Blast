@@ -1,9 +1,5 @@
 package com.example.blast.ui.activity;
 
-import com.example.blast.Constants;
-import com.example.blast.R;
-import com.example.blast.utils.Validation;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +7,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.example.blast.AppConstants;
+import com.example.blast.R;
+import com.example.blast.utils.Validation;
 
 public class SubmitActivity extends Activity implements OnClickListener{
 	private View btn_back;
@@ -28,13 +28,13 @@ public class SubmitActivity extends Activity implements OnClickListener{
 		setContentView(R.layout.activity_submit_url);
 
 		btn_back = findViewById(R.id.btn_back);
-		btn_channel = (ImageView) findViewById(R.id.btn_channel);
+		btn_channel = findViewById(R.id.btn_channel);
 		btn_send = findViewById(R.id.btn_send);
 		
-		edt_email = (EditText) findViewById(R.id.edt_email);
-		edt_email.setText(Constants.ADMIN_EMAIL_ADDRESS);
-		edt_url = (EditText) findViewById(R.id.edt_url);
-		edt_message = (EditText) findViewById(R.id.edt_message);
+		edt_email = findViewById(R.id.edt_email);
+		edt_email.setText(AppConstants.ADMIN_EMAIL_ADDRESS);
+		edt_url = findViewById(R.id.edt_url);
+		edt_message = findViewById(R.id.edt_message);
 		
 		btn_send.setOnClickListener(this);
 		btn_back.setOnClickListener(this);

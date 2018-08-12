@@ -1,15 +1,5 @@
 package com.example.blast.ui.activity;
 
-import java.util.ArrayList;
-
-import com.example.blast.utils.BaseTask;
-import com.example.blast.Constants;
-import com.example.blast.R;
-import com.example.blast.model.ChannelModel;
-import com.example.blast.model.FavoriteModel;
-import com.example.blast.utils.myImageLoader;
-import com.example.blast.utils.FontUtil;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -30,6 +20,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.blast.AppGlobals;
+import com.example.blast.R;
+import com.example.blast.model.ChannelModel;
+import com.example.blast.model.FavoriteModel;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.FontUtil;
+import com.example.blast.utils.myImageLoader;
+
+import java.util.ArrayList;
 
 public class FavoriteListActivity extends Activity {
 
@@ -239,7 +239,7 @@ public class FavoriteListActivity extends Activity {
 
 			try {
 				ViewGroup.LayoutParams params = holder.item_layout.getLayoutParams();
-				params.height = (int)(Constants.SCREEN_WIDTH * 0.5);
+				params.height = (int)(AppGlobals.SCREEN_WIDTH * 0.5);
 				
 				myImageLoader.showImage(holder.img_channel, "");
 				holder.txt_channel_name.setText(mArrayList.get(position).name);

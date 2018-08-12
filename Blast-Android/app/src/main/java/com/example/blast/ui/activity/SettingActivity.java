@@ -1,14 +1,5 @@
 package com.example.blast.ui.activity;
 
-import com.example.blast.utils.BaseTask;
-import com.example.blast.utils.BaseTask.TaskListener;
-import com.example.blast.Constants;
-import com.example.blast.R;
-import com.example.blast.http.Server;
-import com.example.blast.model.UserModel.Login;
-import com.example.blast.utils.myImageLoader;
-import com.example.blast.utils.Validation;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -25,6 +16,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.blast.AppConstants;
+import com.example.blast.AppPreferences;
+import com.example.blast.R;
+import com.example.blast.http.Server;
+import com.example.blast.model.UserModel.Login;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
+import com.example.blast.utils.Validation;
+import com.example.blast.utils.myImageLoader;
 
 public class SettingActivity extends Activity implements OnClickListener{
 	public SettingActivity instance = null;
@@ -52,12 +53,12 @@ public class SettingActivity extends Activity implements OnClickListener{
 		btn_back = findViewById(R.id.btn_back);
 
 		//fbpic_avatar = (ProfilePictureView) findViewById(R.id.fbpic_avatar);
-		img_avatar = (ImageView) findViewById(R.id.img_avatar);
-		txt_user_id = (TextView) findViewById(R.id.txt_user_id);
+		img_avatar = findViewById(R.id.img_avatar);
+		txt_user_id = findViewById(R.id.txt_user_id);
 
 		btn_login = findViewById(R.id.btn_login);
 		btn_reset_password = findViewById(R.id.btn_reset_password);
-		layout_reset_password_item_bottom_line = (LinearLayout) findViewById(R.id.layout_reset_password_item_bottom_line);
+		layout_reset_password_item_bottom_line = findViewById(R.id.layout_reset_password_item_bottom_line);
 		btn_submit_url = findViewById(R.id.btn_submit_url);
 		btn_clear_cache = findViewById(R.id.btn_clear_cache);
 
@@ -75,18 +76,18 @@ public class SettingActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
-		int login_type = ConfigInfo.getUserLoginMode();
-		if (login_type == Constants.LOGIN_TYPE_UNKNOWN || login_type == Constants.LOGIN_TYPE_EMAIL) {
+		int login_type = AppPreferences.getInt(AppPreferences.KEY.LOGIN_MODE, AppConstants.LOGIN_TYPE_UNKNOWN);
+		if (login_type == AppConstants.LOGIN_TYPE_UNKNOWN || login_type == AppConstants.LOGIN_TYPE_EMAIL) {
 			img_avatar.setVisibility(View.VISIBLE);
 			//fbpic_avatar.setVisibility(View.GONE);
 
-			if (login_type ==  Constants.LOGIN_TYPE_EMAIL) {
-				myImageLoader.showImage(img_avatar, ConfigInfo.getUserAvatarUrl());
-				txt_user_id.setText(ConfigInfo.getUserName());
+			if (login_type ==  AppConstants.LOGIN_TYPE_EMAIL) {
+				myImageLoader.showImage(img_avatar, AppPreferences.getStr(AppPreferences.KEY.USER_AVATAR_URL, null));
+				txt_user_id.setText(AppPreferences.getStr(AppPreferences.KEY.USER_ID, null));
 				setResetPasswordLayoutVisible(true);
 
 			} else {
-				txt_user_id.setText("Unknown User");
+				txt_user_id.setText(R.string.Unknown_User);
 				setResetPasswordLayoutVisible(false);
 			}
 
@@ -95,7 +96,7 @@ public class SettingActivity extends Activity implements OnClickListener{
 			//fbpic_avatar.setVisibility(View.VISIBLE);
 
 			//fbpic_avatar.setProfileId(ConfigInfo.getUserId());
-			txt_user_id.setText(ConfigInfo.getUserName());
+			txt_user_id.setText(AppPreferences.getStr(AppPreferences.KEY.USER_ID, null));
 
 			setResetPasswordLayoutVisible(false);
 		}
@@ -147,9 +148,9 @@ public class SettingActivity extends Activity implements OnClickListener{
 		dlg.setContentView(R.layout.dlg_check_user);
 		dlg.show();
 
-		final EditText edt_user_email = (EditText) dlg.findViewById(R.id.edt_user_email);
-		final EditText edt_password = (EditText) dlg.findViewById(R.id.edt_password);
-		Button btn_check = (Button) dlg.findViewById(R.id.btn_check);
+		final EditText edt_user_email = dlg.findViewById(R.id.edt_user_email);
+		final EditText edt_password = dlg.findViewById(R.id.edt_password);
+		Button btn_check = dlg.findViewById(R.id.btn_check);
 
 		btn_check.setOnClickListener(new OnClickListener() {
 			@Override
@@ -175,7 +176,7 @@ public class SettingActivity extends Activity implements OnClickListener{
 							return null;
 						}
 						
-						return ((String) result);
+						return result;
 					}
 
 					@Override

@@ -39,17 +39,18 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
+import com.devsmart.android.ui.HorizontalListView;
+import com.example.blast.AppConstants;
+import com.example.blast.AppGlobals;
+import com.example.blast.R;
+import com.example.blast.model.VideoModel;
+import com.example.blast.ui.activity.myMediaPlayer;
+import com.example.blast.utils.myImageLoader;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Locale;
-
-import com.devsmart.android.ui.HorizontalListView;
-import com.example.blast.AppConstants;
-import com.example.blast.R;
-import com.example.blast.model.VideoModel;
-import com.example.blast.utils.myImageLoader;
-import com.example.blast.ui.activity.myMediaPlayer;
 
 public class VideoControllerView extends FrameLayout {
 	private static final String TAG = "VideoControllerView";
@@ -194,7 +195,7 @@ public class VideoControllerView extends FrameLayout {
 		HorizontalListView lst_video = (HorizontalListView) v.findViewById(R.id.lst_video);
 		ViewGroup.LayoutParams params = lst_video.getLayoutParams();
 		params.height = (int) (AppConstants.SCREEN_WIDTH * 0.15);
-		LazyAdapter mAdapter = new LazyAdapter(this.getContext(), AppCommonInfo.VideoList);
+		LazyAdapter mAdapter = new LazyAdapter(this.getContext(), AppGlobals.VideoList);
 		lst_video.setAdapter(mAdapter);
 	}
 

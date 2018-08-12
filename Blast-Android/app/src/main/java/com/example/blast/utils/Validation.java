@@ -29,6 +29,10 @@ public class Validation {
 		return true;
 	}
 
+	public static boolean EmptyValidation(EditText control, int resId) {
+		return EmptyValidation(control, control.getResources().getString(resId));
+	}
+
 	public static boolean EmptyValidation(EditText control, String warning_msg) {
 		if (control == null)
 			return false;

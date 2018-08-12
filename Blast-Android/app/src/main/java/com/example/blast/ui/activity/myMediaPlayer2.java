@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Locale;
 
+import com.example.blast.AppConstants;
+import com.example.blast.AppGlobals;
+import com.example.blast.ui.view.VideoControllerView;
 import com.example.blast.utils.BaseTask;
 import com.example.blast.utils.BaseTask.TaskListener;
-import com.example.blast.Constants;
 import com.example.blast.R;
-import com.example.blast.VideoControllerView;
-import com.example.blast.VideoControllerView.MediaPlayerControl;
 import com.example.blast.database.FavoriteDatabase;
 import com.example.blast.http.Server;
 import com.example.blast.model.ErrorModel;
@@ -59,8 +59,15 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-public class myMediaPlayer2 extends Activity
-implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener, OnErrorListener, OnClickListener, OnInfoListener, OnSeekBarChangeListener, MediaPlayerControl {
+public class myMediaPlayer2 extends Activity implements
+		OnBufferingUpdateListener,
+		OnCompletionListener,
+		OnPreparedListener,
+		OnErrorListener,
+		OnClickListener,
+		OnInfoListener,
+		OnSeekBarChangeListener,
+		VideoControllerView.MediaPlayerControl {
 
 	private static final String TAG = myMediaPlayer2.class.getName();
 	public static myMediaPlayer2 instance = null;
@@ -211,39 +218,39 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	}
 
 	private void initControllerView() {
-		btn_back = (ImageButton) findViewById(R.id.btn_back);
+		btn_back = findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 
 		// buttons for Thumb down/up
-		btn_vote_down = (ImageButton) findViewById(R.id.btn_vote_down);
+		btn_vote_down = findViewById(R.id.btn_vote_down);
 		btn_vote_down.setOnClickListener(this);
-		btn_vote_up = (ImageButton) findViewById(R.id.btn_vote_up);
+		btn_vote_up = findViewById(R.id.btn_vote_up);
 		btn_vote_up.setOnClickListener(this);
 
 		// text for thumb down / up count
-		txt_vote_down_count = (TextView) findViewById(R.id.txt_vote_down_count);
-		txt_vote_up_count = (TextView) findViewById(R.id.txt_vote_up_count);
+		txt_vote_down_count = findViewById(R.id.txt_vote_down_count);
+		txt_vote_up_count = findViewById(R.id.txt_vote_up_count);
 
 		// text for video
-		txt_video_title = (TextView) findViewById(R.id.txt_video_title);
-		txt_video_desc = (TextView) findViewById(R.id.txt_video_desc);
+		txt_video_title = findViewById(R.id.txt_video_title);
+		txt_video_desc = findViewById(R.id.txt_video_desc);
 
 		// progress bar
-		txt_end_time = (TextView) findViewById(R.id.txt_end_time);
-		txt_current_time = (TextView) findViewById(R.id.txt_current_time);
+		txt_end_time = findViewById(R.id.txt_end_time);
+		txt_current_time = findViewById(R.id.txt_current_time);
 		mFormatBuilder = new StringBuilder();
 		mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
-		mProgress = (SeekBar) findViewById(R.id.mediacontroller_progress);
+		mProgress = findViewById(R.id.mediacontroller_progress);
 		mProgress.setOnSeekBarChangeListener(this);
 
 		// player
-		txt_download_speed = (TextView) findViewById(R.id.txt_download_speed);
-		txt_buffering = (TextView) findViewById(R.id.txt_buffering);
-		btn_share = (ImageView) findViewById(R.id.btn_share);
-		btn_fullscreen = (ImageView) findViewById(R.id.btn_fullscreen);
-		btn_backward = (ImageView) findViewById(R.id.btn_backward);
-		btn_play = (ImageView) findViewById(R.id.btn_play);
-		btn_forward = (ImageView) findViewById(R.id.btn_forward);
+		txt_download_speed = findViewById(R.id.txt_download_speed);
+		txt_buffering = findViewById(R.id.txt_buffering);
+		btn_share = findViewById(R.id.btn_share);
+		btn_fullscreen = findViewById(R.id.btn_fullscreen);
+		btn_backward = findViewById(R.id.btn_backward);
+		btn_play = findViewById(R.id.btn_play);
+		btn_forward = findViewById(R.id.btn_forward);
 		btn_share.setOnClickListener(this);
 		btn_fullscreen.setOnClickListener(this);
 		btn_backward.setOnClickListener(this);
@@ -252,7 +259,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 		// video ListView
 		lst_video = (ListView) findViewById(R.id.lst_video);
-		LazyAdapter adapter = new LazyAdapter(this, AppCommonInfo.VideoList);
+		LazyAdapter adapter = new LazyAdapter(this, AppGlobals.VideoList);
 		lst_video.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 
@@ -357,8 +364,8 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				if (AppCommonInfo.VideoList.size() > current_video_index && current_video_index >= 0) {
-					VideoModel.DetailInfo info = AppCommonInfo.VideoList.get(current_video_index);
+				if (AppGlobals.VideoList.size() > current_video_index && current_video_index >= 0) {
+					VideoModel.DetailInfo info = AppGlobals.VideoList.get(current_video_index);
 
 					// send email to administrator
 					String strbody = "PLEASE CHECK THIS VIDEO FILE OR URL\n\n"
@@ -371,7 +378,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 
 					Intent intent = new Intent(Intent.ACTION_SEND);
-					intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.ADMIN_EMAIL_ADDRESS });
+					intent.putExtra(Intent.EXTRA_EMAIL, new String[] { AppConstants.ADMIN_EMAIL_ADDRESS });
 					intent.putExtra(Intent.EXTRA_SUBJECT, "Please check Video URL");
 					intent.putExtra(Intent.EXTRA_TEXT, strbody);
 					intent.setType("html/text");
@@ -386,7 +393,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				// if we donot check current_video_index is last index, the app will enter the endless looping.
-				if (current_video_index != AppCommonInfo.VideoList.size()-1) {
+				if (current_video_index != AppGlobals.VideoList.size()-1) {
 					current_video_index++;
 					playNewVideo();
 				}
@@ -499,7 +506,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	public void playNewVideo() {
 		Toast.makeText(this, "Play Next Video", Toast.LENGTH_LONG).show();
 
-		ArrayList<VideoModel.DetailInfo> list = AppCommonInfo.VideoList;
+		ArrayList<VideoModel.DetailInfo> list = AppGlobals.VideoList;
 		if (current_video_index < 0) {
 			current_video_index = 0;
 			return;
@@ -557,7 +564,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 			try {
 				// Start the MediaController
-				Uri video = Uri.parse(AppCommonInfo.VideoList.get(current_video_index).uri);
+				Uri video = Uri.parse(AppGlobals.VideoList.get(current_video_index).uri);
 				android_videoview.setVideoURI(video);
 
 				android_videoview.requestFocus();
@@ -595,8 +602,8 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	private void shareVideoViaEmail() {
 		String strbody = "Good Video\n\n"
 				+ "**********************\n\n" 
-				+ "Title: " + AppCommonInfo.VideoList.get(current_video_index).title + "\n\n"
-				+ "Url: " + AppCommonInfo.VideoList.get(current_video_index).uri + "\n\n"
+				+ "Title: " + AppGlobals.VideoList.get(current_video_index).title + "\n\n"
+				+ "Url: " + AppGlobals.VideoList.get(current_video_index).uri + "\n\n"
 				+ "**********************\n\n"
 				+ "Please Enjoy. :)";
 
@@ -616,10 +623,10 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 //			shareDlg = new FacebookDialog.ShareDialogBuilder(this)
 //			.setName("Blast Video")
 //			.setCaption("There is good video here, please enjoy.")
-//			.setPicture(AppCommonInfo.VideoList.get(current_video_index).thumbnail_img)
-//			.setDescription("Title: " + AppCommonInfo.VideoList.get(current_video_index).title + "</br>"
-//					+ "Description: " + AppCommonInfo.VideoList.get(current_video_index).description + "</br>"
-//					+ "Url: " + AppCommonInfo.VideoList.get(current_video_index).uri)
+//			.setPicture(AppGlobals.VideoList.get(current_video_index).thumbnail_img)
+//			.setDescription("Title: " + AppGlobals.VideoList.get(current_video_index).title + "</br>"
+//					+ "Description: " + AppGlobals.VideoList.get(current_video_index).description + "</br>"
+//					+ "Url: " + AppGlobals.VideoList.get(current_video_index).uri)
 //					.setLink(ServerConfig.HOST)
 //					.build();
 //
@@ -672,12 +679,12 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 		mFavDatabase = new FavoriteDatabase(this);
 		mFavDatabase.open();
 
-		Cursor cur = mFavDatabase.getSameURL(AppCommonInfo.VideoList.get(current_video_index).uri);
+		Cursor cur = mFavDatabase.getSameURL(AppGlobals.VideoList.get(current_video_index).uri);
 		if (cur != null && cur.getCount() > 0) {
 			Toast.makeText(this, "Already in Fav List", Toast.LENGTH_LONG).show();
 
 		} else {
-			VideoModel.DetailInfo item = AppCommonInfo.VideoList.get(current_video_index);
+			VideoModel.DetailInfo item = AppGlobals.VideoList.get(current_video_index);
 			long dd = mFavDatabase.InsertOne(
 					item.title,
 					item.description, 
@@ -811,8 +818,8 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 				if (result == null) {
 					Toast.makeText(myMediaPlayer2.this, "Get Video List Success", Toast.LENGTH_LONG).show();
 
-					if (AppCommonInfo.VideoList.size() > 0) {
-						GetVoteInfoFromServer(AppCommonInfo.VideoList.get(0).id);
+					if (AppGlobals.VideoList.size() > 0) {
+						GetVoteInfoFromServer(AppGlobals.VideoList.get(0).id);
 					}
 
 					initControllerView();
@@ -895,7 +902,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	 */
 
 	private void saveToGlovalVideoList(ArrayList<VideoModel.Info> info_list) {
-		AppCommonInfo.VideoList.clear();
+		AppGlobals.VideoList.clear();
 
 		for (int i = 0; i < info_list.size(); i++) {
 			VideoModel.Info item = info_list.get(i);
@@ -937,7 +944,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 				detail_item.uri = item.Video;
 			}
 
-			AppCommonInfo.VideoList.add(detail_item);
+			AppGlobals.VideoList.add(detail_item);
 		}
 	}
 
@@ -992,7 +999,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 			try {
 				ViewGroup.LayoutParams params = holder.item_layout.getLayoutParams();
-				params.height = (int)(Constants.SCREEN_WIDTH * 0.12);
+				params.height = (int)(AppGlobals.SCREEN_WIDTH * 0.12);
 
 				myImageLoader.showImage(holder.img_thumbnail, mArrayList.get(position).thumbnail_img);
 				holder.btn_play.setOnClickListener(new OnClickListener() {

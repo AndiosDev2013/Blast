@@ -1,14 +1,5 @@
 package com.example.blast.ui.activity;
 
-import com.example.blast.utils.BaseTask;
-import com.example.blast.utils.BaseTask.TaskListener;
-import com.example.blast.AppConstants;
-import com.example.blast.R;
-import com.example.blast.http.Server;
-import com.example.blast.model.UserModel.Login;
-import com.example.blast.model.UserModel.Register;
-import com.example.blast.utils.Validation;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -19,14 +10,20 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.blast.AppConstants;
+import com.example.blast.AppPreferences;
+import com.example.blast.R;
+import com.example.blast.http.Server;
+import com.example.blast.model.UserModel.Login;
+import com.example.blast.model.UserModel.Register;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
+import com.example.blast.utils.Validation;
+
 public class RegisterActivity extends Activity implements OnClickListener{
 	/*
 	 * For UI
 	 */
-	private View btn_back;
-	private View btn_register;
-	private View  btn_register_facebook;
-	
 	private EditText edt_user_email;
 	private EditText edt_password;
 	private EditText edt_confirm_password;
@@ -44,18 +41,14 @@ public class RegisterActivity extends Activity implements OnClickListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 
-		btn_back = findViewById(R.id.btn_back);
-		btn_register = findViewById(R.id.btn_register);
-		btn_register_facebook = findViewById(R.id.btn_register_facebook);
-		
-		btn_back.setOnClickListener(this);
-		btn_register.setOnClickListener(this);
-		btn_register_facebook.setOnClickListener(this);
-		
-		edt_user_email = (EditText) findViewById(R.id.edt_user_email);
-		edt_password = (EditText) findViewById(R.id.edt_password);
-		edt_confirm_password = (EditText) findViewById(R.id.edt_confirm_password);
-		
+		edt_user_email = findViewById(R.id.edt_user_email);
+		edt_password = findViewById(R.id.edt_password);
+		edt_confirm_password = findViewById(R.id.edt_confirm_password);
+
+		findViewById(R.id.btn_back).setOnClickListener(this);
+		findViewById(R.id.btn_register).setOnClickListener(this);
+		findViewById(R.id.btn_register_facebook).setOnClickListener(this);
+
 		pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Register to Blast...");
 		pDialog.setCancelable(false);
@@ -101,7 +94,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 						return null;
 					}
 
-					return ((String) result);
+					return result;
 				}
 
 				@Override
@@ -116,7 +109,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 						if (pDialog.isShowing())
 							pDialog.dismiss();
 						
-						Toast.makeText(RegisterActivity.this, "Register with Email Fail: " + (String)result, Toast.LENGTH_LONG).show();
+						Toast.makeText(RegisterActivity.this, "Register with Email Fail: " + result, Toast.LENGTH_LONG).show();
 					}
 				}
 
@@ -173,7 +166,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 						return null;
 					}
 					
-					return ((String) result);
+					return result;
 				}
 
 				@Override
@@ -186,15 +179,14 @@ public class RegisterActivity extends Activity implements OnClickListener{
 						Toast.makeText(RegisterActivity.this, "Login Success", Toast.LENGTH_LONG).show();
 						
 						RegisterActivity.this.finish();
-						ConfigInfo.setUserLoginMode(AppConstants.LOGIN_TYPE_FACEBOOK);
-						
+						AppPreferences.setInt(AppPreferences.KEY.LOGIN_MODE, AppConstants.LOGIN_TYPE_FACEBOOK);
+
 						// save user information
-						ConfigInfo.setUserId(mUserInfo.mail);
-						ConfigInfo.setUserName(mUserInfo.mail);
-						ConfigInfo.setUserAvatarUrl(mUserInfo.picture);
+						AppPreferences.setStr(AppPreferences.KEY.USER_ID, mUserInfo.mail);
+						AppPreferences.setStr(AppPreferences.KEY.USER_AVATAR_URL, mUserInfo.picture);
 
 					} else {
-						Toast.makeText(RegisterActivity.this, "Login failed: "+(String)result, Toast.LENGTH_LONG).show();
+						Toast.makeText(RegisterActivity.this, "Login failed: "+result, Toast.LENGTH_LONG).show();
 					}
 				}
 

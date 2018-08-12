@@ -6,7 +6,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="description">Media Controls</string>
     <string name="left_arrow">&lt;</string>
-    <string name="content_description">content_description</string>
+
+    <string name="Unknown_User">Unknown User</string>
+
+    <!-- facebook -->
     <string name="facebook_app_id">1908044139234969</string>
 
 </resources>

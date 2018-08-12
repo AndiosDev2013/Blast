@@ -8,6 +8,8 @@ public class AppPreferences {
 	public static class KEY {
 		// sign in
 		public static final String LOGIN_MODE = "LOGIN_MODE";
+		public static final String USER_ID = "USER_ID";
+		public static final String USER_AVATAR_URL = "USER_AVATAR_URL";
         //
 	}
 	

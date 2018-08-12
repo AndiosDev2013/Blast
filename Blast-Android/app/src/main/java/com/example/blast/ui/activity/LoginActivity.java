@@ -126,9 +126,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 						AppPreferences.setInt(AppPreferences.KEY.LOGIN_MODE, AppConstants.LOGIN_TYPE_EMAIL);
 
 						// save user information
-						ConfigInfo.setUserId(mUserInfo.mail);
-						ConfigInfo.setUserName(mUserInfo.mail);
-						ConfigInfo.setUserAvatarUrl(mUserInfo.picture);
+						AppPreferences.setStr(AppPreferences.KEY.USER_ID, mUserInfo.mail);
+						AppPreferences.setStr(AppPreferences.KEY.USER_AVATAR_URL, mUserInfo.picture);
 
 					} else {
 						Toast.makeText(LoginActivity.this, "Login with Email Fail: " + (String)result, Toast.LENGTH_LONG).show();

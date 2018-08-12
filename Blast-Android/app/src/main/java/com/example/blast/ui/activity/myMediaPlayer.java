@@ -1,24 +1,5 @@
 package com.example.blast.ui.activity;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Formatter;
-import java.util.Locale;
-
-import com.example.blast.utils.BaseTask;
-import com.example.blast.utils.BaseTask.TaskListener;
-import com.example.blast.Constants;
-import com.example.blast.R;
-import com.example.blast.VideoControllerView;
-import com.example.blast.VideoControllerView.MediaPlayerControl;
-import com.example.blast.database.FavoriteDatabase;
-import com.example.blast.http.Server;
-import com.example.blast.model.ErrorModel;
-import com.example.blast.model.VideoModel;
-import com.example.blast.utils.myImageLoader;
-import com.example.blast.utils.YoutubeExtractor;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -55,9 +36,28 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.TextView;
 import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.blast.AppConstants;
+import com.example.blast.AppGlobals;
+import com.example.blast.R;
+import com.example.blast.database.FavoriteDatabase;
+import com.example.blast.http.Server;
+import com.example.blast.model.ErrorModel;
+import com.example.blast.model.VideoModel;
+import com.example.blast.ui.view.VideoControllerView;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
+import com.example.blast.utils.YoutubeExtractor;
+import com.example.blast.utils.myImageLoader;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.Locale;
 
 public class myMediaPlayer extends Activity implements
         OnBufferingUpdateListener,
@@ -67,7 +67,7 @@ public class myMediaPlayer extends Activity implements
         OnClickListener,
         OnInfoListener,
         OnSeekBarChangeListener,
-        MediaPlayerControl {
+		VideoControllerView.MediaPlayerControl {
 
 	private static final String TAG = myMediaPlayer.class.getName();
 	public static myMediaPlayer instance = null;
@@ -218,39 +218,39 @@ public class myMediaPlayer extends Activity implements
 	}
 
 	private void initControllerView() {
-		btn_back = (ImageButton) findViewById(R.id.btn_back);
+		btn_back = findViewById(R.id.btn_back);
 		btn_back.setOnClickListener(this);
 
 		// buttons for Thumb down/up
-		btn_vote_down = (ImageButton) findViewById(R.id.btn_vote_down);
+		btn_vote_down = findViewById(R.id.btn_vote_down);
 		btn_vote_down.setOnClickListener(this);
-		btn_vote_up = (ImageButton) findViewById(R.id.btn_vote_up);
+		btn_vote_up = findViewById(R.id.btn_vote_up);
 		btn_vote_up.setOnClickListener(this);
 
 		// text for thumb down / up count
-		txt_vote_down_count = (TextView) findViewById(R.id.txt_vote_down_count);
-		txt_vote_up_count = (TextView) findViewById(R.id.txt_vote_up_count);
+		txt_vote_down_count = findViewById(R.id.txt_vote_down_count);
+		txt_vote_up_count = findViewById(R.id.txt_vote_up_count);
 
 		// text for video
-		txt_video_title = (TextView) findViewById(R.id.txt_video_title);
-		txt_video_desc = (TextView) findViewById(R.id.txt_video_desc);
+		txt_video_title = findViewById(R.id.txt_video_title);
+		txt_video_desc = findViewById(R.id.txt_video_desc);
 
 		// progress bar
-		txt_end_time = (TextView) findViewById(R.id.txt_end_time);
-		txt_current_time = (TextView) findViewById(R.id.txt_current_time);
+		txt_end_time = findViewById(R.id.txt_end_time);
+		txt_current_time = findViewById(R.id.txt_current_time);
 		mFormatBuilder = new StringBuilder();
 		mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
-		mProgress = (SeekBar) findViewById(R.id.mediacontroller_progress);
+		mProgress = findViewById(R.id.mediacontroller_progress);
 		mProgress.setOnSeekBarChangeListener(this);
 
 		// player
-		txt_download_speed = (TextView) findViewById(R.id.txt_download_speed);
-		txt_buffering = (TextView) findViewById(R.id.txt_buffering);
-		btn_share = (ImageView) findViewById(R.id.btn_share);
-		btn_fullscreen = (ImageView) findViewById(R.id.btn_fullscreen);
-		btn_backward = (ImageView) findViewById(R.id.btn_backward);
-		btn_play = (ImageView) findViewById(R.id.btn_play);
-		btn_forward = (ImageView) findViewById(R.id.btn_forward);
+		txt_download_speed = findViewById(R.id.txt_download_speed);
+		txt_buffering = findViewById(R.id.txt_buffering);
+		btn_share = findViewById(R.id.btn_share);
+		btn_fullscreen = findViewById(R.id.btn_fullscreen);
+		btn_backward = findViewById(R.id.btn_backward);
+		btn_play = findViewById(R.id.btn_play);
+		btn_forward = findViewById(R.id.btn_forward);
 		btn_share.setOnClickListener(this);
 		btn_fullscreen.setOnClickListener(this);
 		btn_backward.setOnClickListener(this);
@@ -258,15 +258,15 @@ public class myMediaPlayer extends Activity implements
 		btn_forward.setOnClickListener(this);
 
 		// video ListView
-		lst_video = (ListView) findViewById(R.id.lst_video);
-		LazyAdapter adapter = new LazyAdapter(this, AppCommonInfo.VideoList);
+		lst_video = findViewById(R.id.lst_video);
+		LazyAdapter adapter = new LazyAdapter(this, AppGlobals.VideoList);
 		lst_video.setAdapter(adapter);
 		adapter.notifyDataSetChanged();
 
 		// layout for full screen
-		layout_title = (LinearLayout) findViewById(R.id.layout_title);
-		layout_left = (LinearLayout) findViewById(R.id.layout_left);
-		layout_control = (LinearLayout) findViewById(R.id.layout_control);
+		layout_title = findViewById(R.id.layout_title);
+		layout_left = findViewById(R.id.layout_left);
+		layout_control = findViewById(R.id.layout_control);
 
 		// anchor view
 		controller = new VideoControllerView(this);
@@ -329,7 +329,7 @@ public class myMediaPlayer extends Activity implements
 
 	public void onBufferingUpdate(MediaPlayer mp, int percent) {
 		// TODO Auto-generated method stub
-		txt_buffering.setText("Buffering: " + percent + "%");
+		txt_buffering.setText(String.format(Locale.getDefault(), "Buffering: %d%%", percent));
 	}
 
 	@Override
@@ -342,7 +342,7 @@ public class myMediaPlayer extends Activity implements
 
 		case MediaPlayer.MEDIA_INFO_METADATA_UPDATE:
 			//Display video download speed
-			txt_download_speed.setText("" + extra + " kb/s");
+			txt_download_speed.setText(String.format(Locale.getDefault(), "%d kb/s", extra));
 			break;
 		}
 		return true;
@@ -364,8 +364,8 @@ public class myMediaPlayer extends Activity implements
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
-				if (AppCommonInfo.VideoList.size() > current_video_index && current_video_index >= 0) {
-					VideoModel.DetailInfo info = AppCommonInfo.VideoList.get(current_video_index);
+				if (AppGlobals.VideoList.size() > current_video_index && current_video_index >= 0) {
+					VideoModel.DetailInfo info = AppGlobals.VideoList.get(current_video_index);
 
 					// send email to administrator
 					String strbody = "PLEASE CHECK THIS VIDEO FILE OR URL\n\n"
@@ -378,7 +378,7 @@ public class myMediaPlayer extends Activity implements
 
 
 					Intent intent = new Intent(Intent.ACTION_SEND);
-					intent.putExtra(Intent.EXTRA_EMAIL, new String[] { Constants.ADMIN_EMAIL_ADDRESS });
+					intent.putExtra(Intent.EXTRA_EMAIL, new String[] { AppConstants.ADMIN_EMAIL_ADDRESS });
 					intent.putExtra(Intent.EXTRA_SUBJECT, "Please check Video URL");
 					intent.putExtra(Intent.EXTRA_TEXT, strbody);
 					intent.setType("html/text");
@@ -393,7 +393,7 @@ public class myMediaPlayer extends Activity implements
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
 				// if we donot check current_video_index is last index, the app will enter the endless looping.
-				if (current_video_index != AppCommonInfo.VideoList.size()-1) {
+				if (current_video_index != AppGlobals.VideoList.size()-1) {
 					current_video_index++;
 					playNewVideo();
 				}
@@ -506,7 +506,7 @@ public class myMediaPlayer extends Activity implements
 	public void playNewVideo() {
 		Toast.makeText(this, "Play Next Video", Toast.LENGTH_LONG).show();
 
-		ArrayList<VideoModel.DetailInfo> list = AppCommonInfo.VideoList;
+		ArrayList<VideoModel.DetailInfo> list = AppGlobals.VideoList;
 		if (current_video_index < 0) {
 			current_video_index = 0;
 			return;
@@ -566,9 +566,8 @@ public class myMediaPlayer extends Activity implements
 				// Start the MediaController
 				android_webview.setWebViewClient(new WebViewClient());
 				android_webview.getSettings().setAllowContentAccess(true);
-				android_webview.getSettings().setJavaScriptEnabled(true);
 				android_webview.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
-				android_webview.loadUrl(AppCommonInfo.VideoList.get(current_video_index).uri);
+				android_webview.loadUrl(AppGlobals.VideoList.get(current_video_index).uri);
 
 			} catch (Exception e) {
 				hideProgressDialog();
@@ -600,8 +599,8 @@ public class myMediaPlayer extends Activity implements
 	private void shareVideoViaEmail() {
 		String strbody = "Good Video\n\n"
 				+ "**********************\n\n" 
-				+ "Title: " + AppCommonInfo.VideoList.get(current_video_index).title + "\n\n"
-				+ "Url: " + AppCommonInfo.VideoList.get(current_video_index).uri + "\n\n"
+				+ "Title: " + AppGlobals.VideoList.get(current_video_index).title + "\n\n"
+				+ "Url: " + AppGlobals.VideoList.get(current_video_index).uri + "\n\n"
 				+ "**********************\n\n"
 				+ "Please Enjoy. :)";
 
@@ -674,12 +673,12 @@ public class myMediaPlayer extends Activity implements
 		mFavDatabase = new FavoriteDatabase(this);
 		mFavDatabase.open();
 
-		Cursor cur = mFavDatabase.getSameURL(AppCommonInfo.VideoList.get(current_video_index).uri);
+		Cursor cur = mFavDatabase.getSameURL(AppGlobals.VideoList.get(current_video_index).uri);
 		if (cur != null && cur.getCount() > 0) {
 			Toast.makeText(this, "Already in Fav List", Toast.LENGTH_LONG).show();
 
 		} else {
-			VideoModel.DetailInfo item = AppCommonInfo.VideoList.get(current_video_index);
+			VideoModel.DetailInfo item = AppGlobals.VideoList.get(current_video_index);
 			long dd = mFavDatabase.InsertOne(
 					item.title,
 					item.description, 
@@ -884,18 +883,18 @@ public class myMediaPlayer extends Activity implements
 		item9.vote_up_count = "2145";
 		item9.vote_down_count = "2014";
 
-		AppCommonInfo.VideoList.clear();
+		AppGlobals.VideoList.clear();
 
-		AppCommonInfo.VideoList.add(item0);
-		AppCommonInfo.VideoList.add(item1);
-		AppCommonInfo.VideoList.add(item2);
-		AppCommonInfo.VideoList.add(item3);
-		AppCommonInfo.VideoList.add(item4);
-		AppCommonInfo.VideoList.add(item5);
-		AppCommonInfo.VideoList.add(item6);
-		AppCommonInfo.VideoList.add(item7);
-		AppCommonInfo.VideoList.add(item8);
-		AppCommonInfo.VideoList.add(item9);
+		AppGlobals.VideoList.add(item0);
+		AppGlobals.VideoList.add(item1);
+		AppGlobals.VideoList.add(item2);
+		AppGlobals.VideoList.add(item3);
+		AppGlobals.VideoList.add(item4);
+		AppGlobals.VideoList.add(item5);
+		AppGlobals.VideoList.add(item6);
+		AppGlobals.VideoList.add(item7);
+		AppGlobals.VideoList.add(item8);
+		AppGlobals.VideoList.add(item9);
 
 		initControllerView();
 		setEnableUI(false);
@@ -929,8 +928,8 @@ public class myMediaPlayer extends Activity implements
 				if (result == null) {
 					Toast.makeText(myMediaPlayer.this, "Get Video List Success", Toast.LENGTH_LONG).show();
 
-					if (AppCommonInfo.VideoList.size() > 0) {
-						GetVoteInfoFromServer(AppCommonInfo.VideoList.get(0).id);
+					if (AppGlobals.VideoList.size() > 0) {
+						GetVoteInfoFromServer(AppGlobals.VideoList.get(0).id);
 					}
 
 					initControllerView();
@@ -1013,7 +1012,7 @@ public class myMediaPlayer extends Activity implements
 	 */
 	
 	private void saveToGlovalVideoList(ArrayList<VideoModel.Info> info_list) {
-		AppCommonInfo.VideoList.clear();
+		AppGlobals.VideoList.clear();
 		
 		for (int i = 0; i < info_list.size(); i++) {
 			VideoModel.Info item = info_list.get(i);
@@ -1055,7 +1054,7 @@ public class myMediaPlayer extends Activity implements
 				detail_item.uri = item.Video;
 			}
 
-			AppCommonInfo.VideoList.add(detail_item);
+			AppGlobals.VideoList.add(detail_item);
 		}
 	}
 
@@ -1110,7 +1109,7 @@ public class myMediaPlayer extends Activity implements
 
 			try {
 				ViewGroup.LayoutParams params = holder.item_layout.getLayoutParams();
-				params.height = (int)(Constants.SCREEN_WIDTH * 0.12);
+				params.height = (int)(AppGlobals.SCREEN_WIDTH * 0.12);
 
 				myImageLoader.showImage(holder.img_thumbnail, mArrayList.get(position).thumbnail_img);
 				holder.btn_play.setOnClickListener(new OnClickListener() {
