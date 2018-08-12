@@ -1,4 +1,4 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
 public class myMediaPlayer1 {
 	

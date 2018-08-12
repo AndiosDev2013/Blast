@@ -1,4 +1,4 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
 
-public class SplashActivity_1 extends Activity {
+import com.example.blast.Constants;
+import com.example.blast.R;
+
+public class SplashActivity_3 extends Activity{
 
 	private static String TAG = SplashActivity_0.class.getName();
 
@@ -14,7 +17,7 @@ public class SplashActivity_1 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//this.requestWindowFeature(Window.FEATURE_NO_TITLE);    // Removes title bar
-		setContentView(R.layout.layout_splash_1);
+		setContentView(R.layout.layout_splash_3);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		// Start timer and launch main activity
 		IntentLauncher launcher = new IntentLauncher();
@@ -22,7 +25,6 @@ public class SplashActivity_1 extends Activity {
 	}
 
 	private class IntentLauncher extends Thread {
-		
 		/**
 	      * Sleep for some time and than start new activity.
 	      */ 
@@ -30,15 +32,15 @@ public class SplashActivity_1 extends Activity {
 		public void run() {
 			try {
 				// Sleeping
-				Thread.sleep(Constants.SPLASH1_SLEEP_TIME*1000);
+				Thread.sleep(Constants.SPLASH3_SLEEP_TIME*1000);
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage());
 			}
 
 			// Start main activity
-			Intent intent = new Intent(SplashActivity_1.this, SplashActivity_2.class);
-			SplashActivity_1.this.startActivity(intent);
-			SplashActivity_1.this.finish();
+			Intent intent = new Intent(SplashActivity_3.this, SplashActivity_4.class);
+			SplashActivity_3.this.startActivity(intent);
+			SplashActivity_3.this.finish();
 		}
 	}
 

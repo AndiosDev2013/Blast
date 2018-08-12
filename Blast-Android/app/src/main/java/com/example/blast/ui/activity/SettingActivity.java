@@ -1,10 +1,14 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
-import com.example.blast.BaseTask.TaskListener;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
+import com.example.blast.ConfigInfo;
+import com.example.blast.Constants;
+import com.example.blast.R;
 import com.example.blast.http.Server;
 import com.example.blast.model.UserModel.Login;
+import com.example.blast.utils.myImageLoader;
 import com.example.blast.utils.Validation;
-import com.facebook.widget.ProfilePictureView;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -27,7 +31,7 @@ public class SettingActivity extends Activity implements OnClickListener{
 	public SettingActivity instance = null;
 
 	private View btn_back;
-	private ProfilePictureView fbpic_avatar;
+	//private ProfilePictureView fbpic_avatar;
 	private ImageView img_avatar;
 	private TextView txt_user_id;
 	private View btn_login;
@@ -48,7 +52,7 @@ public class SettingActivity extends Activity implements OnClickListener{
 
 		btn_back = findViewById(R.id.btn_back);
 
-		fbpic_avatar = (ProfilePictureView) findViewById(R.id.fbpic_avatar);
+		//fbpic_avatar = (ProfilePictureView) findViewById(R.id.fbpic_avatar);
 		img_avatar = (ImageView) findViewById(R.id.img_avatar);
 		txt_user_id = (TextView) findViewById(R.id.txt_user_id);
 
@@ -75,7 +79,7 @@ public class SettingActivity extends Activity implements OnClickListener{
 		int login_type = ConfigInfo.getUserLoginMode();
 		if (login_type == Constants.LOGIN_TYPE_UNKNOWN || login_type == Constants.LOGIN_TYPE_EMAIL) {
 			img_avatar.setVisibility(View.VISIBLE);
-			fbpic_avatar.setVisibility(View.GONE);
+			//fbpic_avatar.setVisibility(View.GONE);
 
 			if (login_type ==  Constants.LOGIN_TYPE_EMAIL) {
 				myImageLoader.showImage(img_avatar, ConfigInfo.getUserAvatarUrl());
@@ -89,9 +93,9 @@ public class SettingActivity extends Activity implements OnClickListener{
 
 		} else {
 			img_avatar.setVisibility(View.GONE);
-			fbpic_avatar.setVisibility(View.VISIBLE);
+			//fbpic_avatar.setVisibility(View.VISIBLE);
 
-			fbpic_avatar.setProfileId(ConfigInfo.getUserId());
+			//fbpic_avatar.setProfileId(ConfigInfo.getUserId());
 			txt_user_id.setText(ConfigInfo.getUserName());
 
 			setResetPasswordLayoutVisible(false);

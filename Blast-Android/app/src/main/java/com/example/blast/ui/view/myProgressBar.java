@@ -1,7 +1,8 @@
-package com.example.blast;
+package com.example.blast.ui.view;
 
 import java.io.IOException;
 
+import com.example.blast.R;
 import com.hipmob.gifanimationdrawable.GifAnimationDrawable;
 
 import android.app.Dialog;

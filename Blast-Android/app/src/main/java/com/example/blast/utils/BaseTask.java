@@ -1,4 +1,4 @@
-package com.example.blast;
+package com.example.blast.utils;
 
 import android.os.AsyncTask;
 

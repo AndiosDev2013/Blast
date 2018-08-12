@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.blast;
+package com.example.blast.ui.view;
 
 import android.content.Context;
 import android.os.Handler;
@@ -45,12 +45,17 @@ import java.util.Formatter;
 import java.util.Locale;
 
 import com.devsmart.android.ui.HorizontalListView;
+import com.example.blast.AppCommonInfo;
+import com.example.blast.Constants;
+import com.example.blast.R;
 import com.example.blast.model.VideoModel;
+import com.example.blast.utils.myImageLoader;
+import com.example.blast.ui.activity.myMediaPlayer;
 
 public class VideoControllerView extends FrameLayout {
 	private static final String TAG = "VideoControllerView";
 
-	private MediaPlayerControl  mController;
+	public MediaPlayerControl  mController;
 	private Context             mContext;
 	private ViewGroup           mAnchor;
 	private View                mRoot;
@@ -91,6 +96,7 @@ public class VideoControllerView extends FrameLayout {
 
 	@Override
 	public void onFinishInflate() {
+		super.onFinishInflate();
 		if (mRoot != null)
 			initControllerView(mRoot);
 	}

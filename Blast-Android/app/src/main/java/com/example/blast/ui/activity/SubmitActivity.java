@@ -1,5 +1,7 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
+import com.example.blast.Constants;
+import com.example.blast.R;
 import com.example.blast.utils.Validation;
 
 import android.app.Activity;

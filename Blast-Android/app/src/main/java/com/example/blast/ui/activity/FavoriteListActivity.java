@@ -1,9 +1,13 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
 import java.util.ArrayList;
 
+import com.example.blast.utils.BaseTask;
+import com.example.blast.Constants;
+import com.example.blast.R;
 import com.example.blast.model.ChannelModel;
 import com.example.blast.model.FavoriteModel;
+import com.example.blast.utils.myImageLoader;
 import com.example.blast.utils.FontUtil;
 
 import android.annotation.SuppressLint;

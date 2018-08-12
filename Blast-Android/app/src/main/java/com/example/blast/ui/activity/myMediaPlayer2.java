@@ -1,4 +1,4 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -6,20 +6,19 @@ import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Locale;
 
-import com.example.blast.BaseTask.TaskListener;
+import com.example.blast.AppCommonInfo;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
+import com.example.blast.Constants;
+import com.example.blast.R;
+import com.example.blast.VideoControllerView;
 import com.example.blast.VideoControllerView.MediaPlayerControl;
 import com.example.blast.database.FavoriteDatabase;
 import com.example.blast.http.Server;
-import com.example.blast.http.ServerConfig;
 import com.example.blast.model.ErrorModel;
 import com.example.blast.model.VideoModel;
-import com.example.blast.utils.FileUtils;
+import com.example.blast.utils.myImageLoader;
 import com.example.blast.utils.YoutubeExtractor;
-import com.facebook.Session;
-import com.facebook.SessionState;
-import com.facebook.UiLifecycleHelper;
-import com.facebook.widget.FacebookDialog;
-import com.facebook.widget.FacebookDialog.PendingCall;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -48,9 +47,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.webkit.URLUtil;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -64,11 +60,11 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-public class myMediaPlayer extends Activity
+public class myMediaPlayer2 extends Activity
 implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener, OnErrorListener, OnClickListener, OnInfoListener, OnSeekBarChangeListener, MediaPlayerControl {
 
-	private static final String TAG = myMediaPlayer.class.getName();
-	public static myMediaPlayer instance = null;
+	private static final String TAG = myMediaPlayer2.class.getName();
+	public static myMediaPlayer2 instance = null;
 
 	/*
 	 * UI
@@ -95,7 +91,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	// center layout
 	private TextView 			txt_download_speed;
 	private TextView			txt_buffering;
-	private WebView				android_webview;
+	private VideoView			android_videoview;
 
 	// anchor view of full screen mode
 	private VideoControllerView controller;
@@ -104,7 +100,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	private ProgressDialog		pDialog;
 
 	// facebook share
-	private UiLifecycleHelper	uiHelper;
+	//private UiLifecycleHelper	uiHelper;
 
 	/*
 	 * Data
@@ -133,7 +129,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 		instance = this;
 
-		setContentView(R.layout.activity_my_media_player);
+		setContentView(R.layout.activity_my_media_player2);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 		Intent intent = getIntent();
@@ -142,17 +138,17 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 		}
 
 		// android video view
-		android_webview = (WebView) findViewById(R.id.android_webview);
+		android_videoview = (VideoView) findViewById(R.id.android_videoview);
 
 		// for facebook share
-		uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
-			@Override
-			public void call(Session session, SessionState state, Exception exception) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		uiHelper.onCreate(savedInstanceState);
+//		uiHelper = new UiLifecycleHelper(this, new Session.StatusCallback() {
+//			@Override
+//			public void call(Session session, SessionState state, Exception exception) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
+//		uiHelper.onCreate(savedInstanceState);
 
 		// get data from server
 		getVideoInfoFromServer();
@@ -163,7 +159,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 		// TODO Auto-generated method stub
 		super.onResume();
 
-		uiHelper.onResume();
+//		uiHelper.onResume();
 	}
 
 	@Override
@@ -171,21 +167,21 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);
 
-		uiHelper.onSaveInstanceState(outState);
+//		uiHelper.onSaveInstanceState(outState);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
 
-		uiHelper.onPause();
+//		uiHelper.onPause();
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 
-		uiHelper.onDestroy();
+//		uiHelper.onDestroy();
 	}
 
 	@Override
@@ -199,20 +195,20 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 		super.onActivityResult(requestCode, resultCode, data);
 
-		uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
-
-			@Override
-			public void onError(PendingCall pendingCall, Exception error, Bundle data) {
-				// TODO Auto-generated method stub
-				Log.e("Facebook", String.format("Fail: %s", error.toString()));
-			}
-
-			@Override
-			public void onComplete(PendingCall pendingCall, Bundle data) {
-				// TODO Auto-generated method stub
-				Log.i("Facebook", "Success");
-			}
-		});
+//		uiHelper.onActivityResult(requestCode, resultCode, data, new FacebookDialog.Callback() {
+//
+//			@Override
+//			public void onError(PendingCall pendingCall, Exception error, Bundle data) {
+//				// TODO Auto-generated method stub
+//				Log.e("Facebook", String.format("Fail: %s", error.toString()));
+//			}
+//
+//			@Override
+//			public void onComplete(PendingCall pendingCall, Bundle data) {
+//				// TODO Auto-generated method stub
+//				Log.i("Facebook", "Success");
+//			}
+//		});
 	}
 
 	private void initControllerView() {
@@ -313,11 +309,11 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 		controller.setMediaPlayer(this);
 		controller.setAnchorView((FrameLayout) findViewById(R.id.videoSurfaceContainer));
 
-//		hideProgressDialog();
-//		android_videoview.start();
-//
-//		mProgress.setMax((int)android_videoview.getDuration());
-//		updatePosition();
+		hideProgressDialog();
+		android_videoview.start();
+
+		mProgress.setMax((int)android_videoview.getDuration());
+		updatePosition();
 
 		btn_play.setImageResource(R.drawable.bg_btn_media_pause);
 
@@ -487,18 +483,18 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	}
 
 	private void doPauseResume() {
-//		if (android_videoview.isPlaying()) {
-//			android_videoview.pause();
-//		} else {
-//			android_videoview.start();
-//		}
-//
-//		// set play or pause button
-//		if (android_videoview.isPlaying()) {
-//			btn_play.setImageResource(R.drawable.bg_btn_media_pause);
-//		} else {
-//			btn_play.setImageResource(R.drawable.bg_btn_media_play);
-//		}
+		if (android_videoview.isPlaying()) {
+			android_videoview.pause();
+		} else {
+			android_videoview.start();
+		}
+
+		// set play or pause button
+		if (android_videoview.isPlaying()) {
+			btn_play.setImageResource(R.drawable.bg_btn_media_pause);
+		} else {
+			btn_play.setImageResource(R.drawable.bg_btn_media_play);
+		}
 	}
 
 	public void playNewVideo() {
@@ -562,12 +558,13 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 			try {
 				// Start the MediaController
-				android_webview.setWebViewClient(new WebViewClient());
-				android_webview.getSettings().setAllowContentAccess(true);
-				android_webview.getSettings().setJavaScriptEnabled(true);
-				android_webview.getSettings().setPluginsEnabled(true);
-				android_webview.getSettings().setUserAgentString("Mozilla/5.0 (Linux; U; Android 2.0; en-us; Droid Build/ESD20) AppleWebKit/530.17 (KHTML, like Gecko) Version/4.0 Mobile Safari/530.17");
-				android_webview.loadUrl(AppCommonInfo.VideoList.get(current_video_index).uri);
+				Uri video = Uri.parse(AppCommonInfo.VideoList.get(current_video_index).uri);
+				android_videoview.setVideoURI(video);
+
+				android_videoview.requestFocus();
+				android_videoview.setOnPreparedListener(myMediaPlayer2.this);
+				android_videoview.setOnErrorListener(myMediaPlayer2.this);
+				android_videoview.setOnCompletionListener(myMediaPlayer2.this);
 
 			} catch (Exception e) {
 				hideProgressDialog();
@@ -615,26 +612,26 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 	private void shareVideoViaFacebook() {
 
-		FacebookDialog shareDlg = null;
-		try {
-			shareDlg = new FacebookDialog.ShareDialogBuilder(this)
-			.setName("Blast Video")
-			.setCaption("There is good video here, please enjoy.")
-			.setPicture(AppCommonInfo.VideoList.get(current_video_index).thumbnail_img)
-			.setDescription("Title: " + AppCommonInfo.VideoList.get(current_video_index).title + "</br>"
-					+ "Description: " + AppCommonInfo.VideoList.get(current_video_index).description + "</br>"
-					+ "Url: " + AppCommonInfo.VideoList.get(current_video_index).uri)
-					.setLink(ServerConfig.HOST)
-					.build();
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			Toast.makeText(this, "It seems the Facebook App is not installed. Please install Facebook App First for Sharing.", Toast.LENGTH_LONG).show();
-		}
-
-		if (shareDlg != null) {
-			uiHelper.trackPendingDialogCall(shareDlg.present());
-		}
+//		FacebookDialog shareDlg = null;
+//		try {
+//			shareDlg = new FacebookDialog.ShareDialogBuilder(this)
+//			.setName("Blast Video")
+//			.setCaption("There is good video here, please enjoy.")
+//			.setPicture(AppCommonInfo.VideoList.get(current_video_index).thumbnail_img)
+//			.setDescription("Title: " + AppCommonInfo.VideoList.get(current_video_index).title + "</br>"
+//					+ "Description: " + AppCommonInfo.VideoList.get(current_video_index).description + "</br>"
+//					+ "Url: " + AppCommonInfo.VideoList.get(current_video_index).uri)
+//					.setLink(ServerConfig.HOST)
+//					.build();
+//
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			Toast.makeText(this, "It seems the Facebook App is not installed. Please install Facebook App First for Sharing.", Toast.LENGTH_LONG).show();
+//		}
+//
+//		if (shareDlg != null) {
+//			uiHelper.trackPendingDialogCall(shareDlg.present());
+//		}
 	}
 
 	private void showFullscreen() {
@@ -663,6 +660,9 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 		// set fullscreen mode flag
 		mFullscreenMode = true;
+
+		// play video
+		//playNewVideo();
 	}
 
 	private void doVoteDown() {
@@ -724,6 +724,9 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 
 		// set fullscreen mode flag
 		mFullscreenMode = false;
+
+		// play video
+		//playNewVideo();
 	}
 
 	private void backwardPlay() {
@@ -743,30 +746,30 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	};
 
 	private void updatePosition() {
-//		if (updatePositionRunnable == null || mUpdateProgresshandler == null)
-//			return;
-//
-//		mUpdateProgresshandler.removeCallbacks(updatePositionRunnable);
-//
-//		int duration = (int)android_videoview.getDuration();
-//		int position = (int)android_videoview.getCurrentPosition();
-//
-//		mProgress.setProgress(position);
-//
-//		if (txt_end_time != null)
-//			txt_end_time.setText(stringForTime(duration));
-//		if (txt_current_time != null)
-//			txt_current_time.setText(stringForTime(position));
-//
-//		mUpdateProgresshandler.postDelayed(updatePositionRunnable, 500);
+		if (updatePositionRunnable == null || mUpdateProgresshandler == null)
+			return;
+
+		mUpdateProgresshandler.removeCallbacks(updatePositionRunnable);
+
+		int duration = (int)android_videoview.getDuration();
+		int position = (int)android_videoview.getCurrentPosition();
+
+		mProgress.setProgress(position);
+
+		if (txt_end_time != null)
+			txt_end_time.setText(stringForTime(duration));
+		if (txt_current_time != null)
+			txt_current_time.setText(stringForTime(position));
+
+		mUpdateProgresshandler.postDelayed(updatePositionRunnable, 500);
 	}
 
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 		// TODO Auto-generated method stub
-//		if (fromUser) {
-//			android_videoview.seekTo(progress);
-//		}
+		if (fromUser) {
+			android_videoview.seekTo(progress);
+		}
 	}
 
 	@Override
@@ -779,125 +782,6 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub
 
-	}
-
-	private void getVideoInfoFromServer_for_test() {
-		// temp data source code
-		VideoModel.DetailInfo item0 = new VideoModel.DetailInfo();
-		item0.id = "3";
-		item0.title = "Good TV Channel 1";
-		item0.description = "d - Good TV Channel 1";
-		item0.thumbnail_img = "https://photos-1.dropbox.com/t/0/AAAgSFoqakFzPFCXvxicxidNK4D5x3TnPkOPdPZvD-orNw/12/245471872/png/1024x768/2/_/0/2/image01.png/EARprzPO2UeSWR3Y76l0xugF1M7CtlCtlbE8ef0X0aw";
-		//item0.uri = "http://live1.goodtv.org/osmflivech1.m3u8";
-		item0.uri = "https://dl.dropboxusercontent.com/s/4ueon4mlnkofu1w/01.mp4";
-		item0.vote_up_count = "2566";
-		item0.vote_down_count = "176";
-
-		VideoModel.DetailInfo item1 = new VideoModel.DetailInfo();
-		item1.id = "0";
-		item1.title = "ETV";
-		item1.description = "d - ETV";
-		item1.thumbnail_img = "https://photos-5.dropbox.com/t/0/AAC3nC7vZrxtH8-7luFo_ydk3T75MO6UO19ise3oRaE0eg/12/245471872/png/1024x768/2/_/0/2/face.png/pNCgLKHL14Q1NIV9uadpyL4hVsVJTg1mYzfXwUZh3ms";
-		//item1.uri = "rtmp://213.55.98.102/live/livestream";
-		item1.uri = "https://dl.dropboxusercontent.com/s/8keqr0p9p9j7m0h/02.mp4";
-		item1.vote_up_count = "30002";
-		item1.vote_down_count = "236";
-
-		VideoModel.DetailInfo item2 = new VideoModel.DetailInfo();
-		item2.id = "2";
-		item2.title = "Taiwan Television (TTV)";
-		item2.description = "d - Taiwan Television (TTV)";
-		item2.thumbnail_img = "https://photos-1.dropbox.com/t/0/AABDayo3Eq5GwpVKQQTK6d5hQHnz3b_sMcO2rnHRtIggyQ/12/245471872/png/1024x768/2/_/0/2/helpbg.png/LrlPSphf9jTzZ74jJfPWKmS4EGWM0Un7oNeBbfnfLYU";
-		//item2.uri = "rtmp://www.gggg-box.com.cn/live/CH08";
-		item2.uri = "https://dl.dropboxusercontent.com/s/7bdp4u10bntsfbm/03.mp4";
-		item2.vote_up_count = "150";
-		item2.vote_down_count = "23678";
-
-		VideoModel.DetailInfo item3 = new VideoModel.DetailInfo();
-		item3.id = "1";
-		item3.title = "Kanal 0";
-		item3.description = "d - Kanal 0";
-		item3.thumbnail_img = "https://photos-6.dropbox.com/t/0/AADpgBsvJqTjK0uUShW89AnHZa2-85rjSSaU67QD9O0kYg/12/245471872/png/1024x768/2/_/0/2/help.png/dTr7ua22Srz-Lxo9kKv6VlO2805Q_U3452XRfM2jz-Y";
-		//item3.uri = "mms://stream.kompasbg.com:8081";
-		item3.uri = "https://dl.dropboxusercontent.com/s/17a95kcivp98ule/04.flv";
-		item3.vote_up_count = "317";
-		item3.vote_down_count = "46667";
-
-		VideoModel.DetailInfo item4 = new VideoModel.DetailInfo();
-		item4.id = "4";
-		item4.title = "Good TV Channel 2";
-		item4.description = "d - Good TV Channel 2";
-		item4.thumbnail_img = "https://photos-1.dropbox.com/t/0/AAD3E19vZrWz5jyv4EZcXnx8H7nzBBSVAQxrfl6ICz_1mw/12/245471872/png/1024x768/2/_/0/2/image02.png/6II7rN76gBx5UtzR-OvqkZxQzRfxaiQ0hXOuQ07WrWs";
-		//item4.uri = "http://live4.goodtv.org/osmflivech4.m3u8";
-		item4.uri = "https://dl.dropboxusercontent.com/s/rlqxw04jjbvmq4s/05.flv";
-		item4.vote_up_count = "27272";
-		item4.vote_down_count = "109";
-
-		VideoModel.DetailInfo item5 = new VideoModel.DetailInfo();
-		item5.id = "5";
-		item5.title = "WTB TV";
-		item5.description = "d - WTB TV";
-		item5.thumbnail_img = "https://photos-5.dropbox.com/t/0/AABEppfTNb0i3EWkqOXfYjQR_zOhBfHHq9SI2bu90e7gQw/12/245471872/png/1024x768/2/_/0/2/image03.png/pQXKVeWxDoYFyc9Nnft-Z4stk7bTC5k8w92Zkci8e4E";
-		//item5.uri = "mms://channel.nbtv.tw/buddha2oo";
-		item5.uri = "https:/dl.dropboxusercontent.com/s/enm9z2vflqpkoo8/06.flv";
-		item5.vote_up_count = "5595";
-		item5.vote_down_count = "29";
-
-		VideoModel.DetailInfo item6 = new VideoModel.DetailInfo();
-		item6.id = "6";
-		item6.title = "ViVa TV";
-		item6.description = "d - ViVa TV";
-		item6.thumbnail_img = "https://photos-6.dropbox.com/t/0/AAApzj9Tdk4NQpkY8wm9jSaqX7npkJ69zhq2EMSUdvB7ew/12/245471872/png/1024x768/2/_/0/2/image04.png/p_g-sU-uhXjT1YoWUss1Jvpgvf0dCM-m31UwxvJBYMQ";
-		//item6.uri = "mms://mediacenter.vivatv.com.tw/vivatv";
-		item6.uri = "https://dl.dropboxusercontent.com/s/sq4wnyhp5au5b6v/07.flv";
-		item6.vote_up_count = "70";
-		item6.vote_down_count = "11";
-
-		VideoModel.DetailInfo item7 = new VideoModel.DetailInfo();
-		item7.id = "7";
-		item7.title = "UCTV";
-		item7.description = "d - UCTV";
-		item7.thumbnail_img = "https://photos-2.dropbox.com/t/0/AAAPv6C_Q30OUm-zAMotmE0ce0MA_K5y2-J0GaZA0g8UtQ/12/245471872/png/1024x768/2/_/0/2/image05.png/5FsOqYiaxwSZnfPzW2GoDxtfipwmgxqgx03mWSVVjn8";
-		//item7.uri = "rtmp://124.219.69.161:1935/live/livestream";
-		item7.uri = "https://dl.dropboxusercontent.com/s/88y8myt0ln3owvm/08.flv";
-		item7.vote_up_count = "124";
-		item7.vote_down_count = "35";
-
-		VideoModel.DetailInfo item8 = new VideoModel.DetailInfo();
-		item8.id = "8";
-		item8.title = "India TV";
-		item8.description = "d - India TV";
-		item8.thumbnail_img = "https://photos-6.dropbox.com/t/0/AACe0568LNuyL1Fn1YJ3zyVtDxpQdo4ORLIeD4LvsYiCIQ/12/245471872/png/1024x768/2/_/0/2/musicplus_back.png/W0g23jILW5vqsrKrStK8gTJyfYk1QF3NFUuj-4X2fhc";
-		//item8.uri = "rtmp://cdn3.scieron.com/live/nd24tv.flv";
-		item8.uri = "https://dl.dropboxusercontent.com/s/q4i6h548c3836i0/09.flv";
-		item8.vote_up_count = "945";
-		item8.vote_down_count = "64";
-
-		VideoModel.DetailInfo item9 = new VideoModel.DetailInfo();
-		item9.id = "9";
-		item9.title = "TV9 News (English)";
-		item9.description = "d - TV9 News (English)";
-		item9.thumbnail_img = "https://photos-4.dropbox.com/t/0/AABg0WYV3cgDP6VVVIQdMbbCKkF9MGRfCTuWH3tr2DMI8Q/12/245471872/png/1024x768/2/_/0/2/radio21_back.png/L9Jmbwac0izaBoUTCfoewYEADVWhkOEjo1teqbF3ji4";
-		//item9.uri = "http://mayatv.in:1935/news9/_definst_/livestream3/playlist.m3u8?wowzasessionid=1065943465";
-		item9.uri = "https://dl.dropboxusercontent.com/s/z1v2te2brvi7uaa/10.flv";
-		item9.vote_up_count = "2145";
-		item9.vote_down_count = "2014";
-
-		AppCommonInfo.VideoList.clear();
-
-		AppCommonInfo.VideoList.add(item0);
-		AppCommonInfo.VideoList.add(item1);
-		AppCommonInfo.VideoList.add(item2);
-		AppCommonInfo.VideoList.add(item3);
-		AppCommonInfo.VideoList.add(item4);
-		AppCommonInfo.VideoList.add(item5);
-		AppCommonInfo.VideoList.add(item6);
-		AppCommonInfo.VideoList.add(item7);
-		AppCommonInfo.VideoList.add(item8);
-		AppCommonInfo.VideoList.add(item9);
-
-		initControllerView();
-		setEnableUI(false);
 	}
 
 	private void getVideoInfoFromServer() {
@@ -926,7 +810,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 				hideProgressDialog();
 
 				if (result == null) {
-					Toast.makeText(myMediaPlayer.this, "Get Video List Success", Toast.LENGTH_LONG).show();
+					Toast.makeText(myMediaPlayer2.this, "Get Video List Success", Toast.LENGTH_LONG).show();
 
 					if (AppCommonInfo.VideoList.size() > 0) {
 						GetVoteInfoFromServer(AppCommonInfo.VideoList.get(0).id);
@@ -935,7 +819,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 					initControllerView();
 
 				} else {
-					Toast.makeText(myMediaPlayer.this, "Get Video List Fail: " + (String)result, Toast.LENGTH_LONG).show();
+					Toast.makeText(myMediaPlayer2.this, "Get Video List Fail: " + (String)result, Toast.LENGTH_LONG).show();
 				}
 			}
 
@@ -987,9 +871,9 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 				hideProgressDialog();
 
 				if (result == null) {
-					Toast.makeText(myMediaPlayer.this, "Get Vote Status Success", Toast.LENGTH_LONG).show();
+					Toast.makeText(myMediaPlayer2.this, "Get Vote Status Success", Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(myMediaPlayer.this, "Get Vote Status Fail: " + (String)result, Toast.LENGTH_LONG).show();
+					Toast.makeText(myMediaPlayer2.this, "Get Vote Status Fail: " + (String)result, Toast.LENGTH_LONG).show();
 				}
 			}
 
@@ -1010,10 +894,10 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 	/*
 	 * Save video infomation to App Common Video information list
 	 */
-	
+
 	private void saveToGlovalVideoList(ArrayList<VideoModel.Info> info_list) {
 		AppCommonInfo.VideoList.clear();
-		
+
 		for (int i = 0; i < info_list.size(); i++) {
 			VideoModel.Info item = info_list.get(i);
 
@@ -1035,21 +919,21 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				if (YoutubeExtractor.video_url_map.containsKey(YoutubeExtractor.VideoQuality.Small240)) {
-					URL url = (URL)YoutubeExtractor.video_url_map.get(YoutubeExtractor.VideoQuality.Small240);
-					detail_item.uri = url.toString();
-				} else if (YoutubeExtractor.video_url_map.containsKey(YoutubeExtractor.VideoQuality.Medium360)) {
+
+				if (YoutubeExtractor.video_url_map.containsKey(YoutubeExtractor.VideoQuality.Medium360)) {
 					URL url = (URL)YoutubeExtractor.video_url_map.get(YoutubeExtractor.VideoQuality.Medium360);
 					detail_item.uri = url.toString();
 				} else if (YoutubeExtractor.video_url_map.containsKey(YoutubeExtractor.VideoQuality.HD720)) {
 					URL url = (URL)YoutubeExtractor.video_url_map.get(YoutubeExtractor.VideoQuality.HD720);
 					detail_item.uri = url.toString();
+				} else 	if (YoutubeExtractor.video_url_map.containsKey(YoutubeExtractor.VideoQuality.Small240)) {
+					URL url = (URL)YoutubeExtractor.video_url_map.get(YoutubeExtractor.VideoQuality.Small240);
+					detail_item.uri = url.toString();
 				} else if (YoutubeExtractor.video_url_map.containsKey(YoutubeExtractor.VideoQuality.HD1080)) {
 					URL url = (URL)YoutubeExtractor.video_url_map.get(YoutubeExtractor.VideoQuality.HD1080);
 					detail_item.uri = url.toString();
 				}
-				
+
 			} else {
 				detail_item.uri = item.Video;
 			}
@@ -1231,7 +1115,7 @@ implements 	OnBufferingUpdateListener, OnCompletionListener, OnPreparedListener,
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// TODO Auto-generated method stub
-					myMediaPlayer.super.onBackPressed();
+					myMediaPlayer2.super.onBackPressed();
 				}
 			})
 			.setNegativeButton("No, Continue", null)

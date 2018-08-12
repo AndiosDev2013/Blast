@@ -1,11 +1,16 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
 import java.util.ArrayList;
 
-import com.example.blast.BaseTask.TaskListener;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
+import com.example.blast.ConfigInfo;
+import com.example.blast.Constants;
+import com.example.blast.R;
 import com.example.blast.http.Server;
 import com.example.blast.model.ChannelModel;
 import com.example.blast.model.VideoModel;
+import com.example.blast.utils.myImageLoader;
 import com.example.blast.utils.FontUtil;
 
 import android.annotation.SuppressLint;
@@ -14,7 +19,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;

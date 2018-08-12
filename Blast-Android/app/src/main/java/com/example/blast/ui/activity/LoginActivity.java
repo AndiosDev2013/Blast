@@ -1,16 +1,19 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.blast.BaseTask.TaskListener;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
+import com.example.blast.ConfigInfo;
+import com.example.blast.Constants;
+import com.example.blast.R;
 import com.example.blast.http.Server;
 import com.example.blast.model.UserModel.Login;
 import com.example.blast.utils.FontUtil;
@@ -224,7 +227,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
-		Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
+		//Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
 	}
 
 	private void doRegister() {

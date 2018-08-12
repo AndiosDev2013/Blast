@@ -1,4 +1,4 @@
-package com.example.blast;
+package com.example.blast.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
+
+import com.example.blast.Constants;
+import com.example.blast.R;
 
 public class SplashActivity_0 extends Activity {
 
