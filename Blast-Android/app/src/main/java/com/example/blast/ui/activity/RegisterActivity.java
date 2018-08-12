@@ -2,8 +2,7 @@ package com.example.blast.ui.activity;
 
 import com.example.blast.utils.BaseTask;
 import com.example.blast.utils.BaseTask.TaskListener;
-import com.example.blast.ConfigInfo;
-import com.example.blast.Constants;
+import com.example.blast.AppConstants;
 import com.example.blast.R;
 import com.example.blast.http.Server;
 import com.example.blast.model.UserModel.Login;
@@ -187,7 +186,7 @@ public class RegisterActivity extends Activity implements OnClickListener{
 						Toast.makeText(RegisterActivity.this, "Login Success", Toast.LENGTH_LONG).show();
 						
 						RegisterActivity.this.finish();
-						ConfigInfo.setUserLoginMode(Constants.LOGIN_TYPE_FACEBOOK);
+						ConfigInfo.setUserLoginMode(AppConstants.LOGIN_TYPE_FACEBOOK);
 						
 						// save user information
 						ConfigInfo.setUserId(mUserInfo.mail);

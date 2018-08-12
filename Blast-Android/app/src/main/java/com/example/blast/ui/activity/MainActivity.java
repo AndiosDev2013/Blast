@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.example.blast.utils.BaseTask;
 import com.example.blast.utils.BaseTask.TaskListener;
-import com.example.blast.ConfigInfo;
 import com.example.blast.Constants;
 import com.example.blast.R;
 import com.example.blast.http.Server;

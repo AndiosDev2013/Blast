@@ -9,13 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.blast.utils.BaseTask;
-import com.example.blast.utils.BaseTask.TaskListener;
-import com.example.blast.ConfigInfo;
-import com.example.blast.Constants;
+import com.example.blast.AppConstants;
+import com.example.blast.AppPreferences;
 import com.example.blast.R;
 import com.example.blast.http.Server;
 import com.example.blast.model.UserModel.Login;
+import com.example.blast.utils.BaseTask;
+import com.example.blast.utils.BaseTask.TaskListener;
 import com.example.blast.utils.FontUtil;
 import com.example.blast.utils.Validation;
 
@@ -123,8 +123,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 						Toast.makeText(LoginActivity.this, "Login with Email Success", Toast.LENGTH_LONG).show();
 						
 						LoginActivity.this.finish();
-						ConfigInfo.setUserLoginMode(Constants.LOGIN_TYPE_EMAIL);
-						
+						AppPreferences.setInt(AppPreferences.KEY.LOGIN_MODE, AppConstants.LOGIN_TYPE_EMAIL);
+
 						// save user information
 						ConfigInfo.setUserId(mUserInfo.mail);
 						ConfigInfo.setUserName(mUserInfo.mail);

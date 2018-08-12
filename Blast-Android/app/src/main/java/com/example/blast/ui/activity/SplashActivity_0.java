@@ -3,11 +3,11 @@ package com.example.blast.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
-import com.example.blast.Constants;
+import com.example.blast.AppConstants;
+import com.example.blast.AppGlobals;
 import com.example.blast.R;
 
 public class SplashActivity_0 extends Activity {
@@ -22,14 +22,10 @@ public class SplashActivity_0 extends Activity {
 		/*
 		 * Get Device Screen Size
 		 */
-		DisplayMetrics displaymetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-		Constants.SCREEN_WIDTH = displaymetrics.widthPixels;
-		Constants.SCREEN_HEIGHT = displaymetrics.heightPixels;
-		if (Constants.SCREEN_WIDTH > Constants.SCREEN_HEIGHT) {
-			int temp = Constants.SCREEN_WIDTH;
-			Constants.SCREEN_WIDTH = Constants.SCREEN_HEIGHT;
-			Constants.SCREEN_HEIGHT = temp;
+		if (AppGlobals.SCREEN_WIDTH > AppGlobals.SCREEN_HEIGHT) {
+			float temp = AppGlobals.SCREEN_WIDTH;
+			AppGlobals.SCREEN_WIDTH = AppGlobals.SCREEN_HEIGHT;
+			AppGlobals.SCREEN_HEIGHT = temp;
 		}
 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -47,7 +43,7 @@ public class SplashActivity_0 extends Activity {
 		public void run() {
 			try {
 				// Sleeping
-				Thread.sleep(Constants.SPLASH0_SLEEP_TIME*1000);
+				Thread.sleep(AppConstants.SPLASH0_SLEEP_TIME*1000);
 			} catch (Exception e) {
 				Log.e(TAG, e.getMessage());
 			}

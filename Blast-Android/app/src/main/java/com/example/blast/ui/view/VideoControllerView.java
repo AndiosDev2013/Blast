@@ -45,8 +45,7 @@ import java.util.Formatter;
 import java.util.Locale;
 
 import com.devsmart.android.ui.HorizontalListView;
-import com.example.blast.AppCommonInfo;
-import com.example.blast.Constants;
+import com.example.blast.AppConstants;
 import com.example.blast.R;
 import com.example.blast.model.VideoModel;
 import com.example.blast.utils.myImageLoader;
@@ -194,7 +193,7 @@ public class VideoControllerView extends FrameLayout {
 
 		HorizontalListView lst_video = (HorizontalListView) v.findViewById(R.id.lst_video);
 		ViewGroup.LayoutParams params = lst_video.getLayoutParams();
-		params.height = (int) (Constants.SCREEN_WIDTH * 0.15);
+		params.height = (int) (AppConstants.SCREEN_WIDTH * 0.15);
 		LazyAdapter mAdapter = new LazyAdapter(this.getContext(), AppCommonInfo.VideoList);
 		lst_video.setAdapter(mAdapter);
 	}
@@ -632,7 +631,7 @@ public class VideoControllerView extends FrameLayout {
 
 			try {
 				ViewGroup.LayoutParams params = holder.item_layout.getLayoutParams();
-				params.width = (int)(Constants.SCREEN_HEIGHT * 0.15);
+				params.width = (int)(AppConstants.SCREEN_HEIGHT * 0.15);
 
 				myImageLoader.showImage(holder.img_thumbnail, mArrayList.get(position).thumbnail_img);
 				holder.btn_play.setOnClickListener(new OnClickListener() {

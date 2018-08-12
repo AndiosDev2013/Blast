@@ -1,8 +1,5 @@
 package com.example.blast;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -11,6 +8,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.Signature;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.example.blast.utils.Validation;
 import com.example.blast.utils.myImageLoader;
@@ -19,28 +18,32 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
-public class BlastApp extends Application {
-	private static BlastApp instance;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-	public static BlastApp getInstance() {
-		return instance;
-	}
+public class BlastApp extends Application {
+	public static Context mContext;
+	public static String mPackageName;
 
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		instance = this;
+		mContext = this.getApplicationContext();
 
 		// checkSignatures();
 		
 		// initialize Configuration Manager
-		ConfigInfo.initialize(instance.getApplicationContext());
+		WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+
+		AppGlobals.SCREEN_WIDTH = display.getWidth();
+		AppGlobals.SCREEN_HEIGHT = display.getHeight();
 
 		// initialize Validation
-		Validation.initialize(instance.getApplicationContext());
+		Validation.initialize(mContext);
 
 		// initialize Image Loader
-		initImageLoader(instance.getApplicationContext());
+		initImageLoader(mContext);
 		new myImageLoader();
 		myImageLoader.init();
 	}

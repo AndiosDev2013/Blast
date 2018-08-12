@@ -1,6 +1,6 @@
 package com.example.blast;
 
-public class Constants {
+public class AppConstants {
 	
 	/*
 	 * Screen Width and Height

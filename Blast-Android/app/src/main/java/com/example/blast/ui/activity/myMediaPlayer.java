@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Locale;
 
-import com.example.blast.AppCommonInfo;
 import com.example.blast.utils.BaseTask;
 import com.example.blast.utils.BaseTask.TaskListener;
 import com.example.blast.Constants;
